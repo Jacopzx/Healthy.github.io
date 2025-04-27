@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Nutrition LINE Chatbot</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Health & Nutrition Bot</h1>
+      <a href="#start" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded">เริ่มใช้งาน</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="text-center py-16 px-6">
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">พัฒนาระบบ LINE Chatbot สุขภาพและโภชนาการ</h2>
+    <p class="text-lg md:text-xl text-gray-600 mb-6">ถ่ายภาพอาหาร รู้ทันที! ชื่อเมนู พลังงาน และสารอาหารครบถ้วน 🍎✨</p>
+    <a href="#features" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded">ดูฟีเจอร์</a>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="max-w-7xl mx-auto py-12 px-4">
+    <h3 class="text-3xl font-bold text-center mb-10">✨ ฟีเจอร์หลัก</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">📷 ถ่ายภาพอาหาร</h4>
+        <p>ส่งรูปผ่าน LINE Chatbot ง่ายๆ แล้วให้ระบบวิเคราะห์.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">🧐 วิเคราะห์ชื่ออาหาร</h4>
+        <p>ใช้ AI แยกประเภทอาหารจากภาพ เช่น ข้าวผัดหมู, ส้มตำไทย.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">🔥 บอกแคลอรี่และสารอาหาร</h4>
+        <p>แสดงพลังงาน, โปรตีน, ไขมัน, คาร์โบไฮเดรต พร้อม % Daily Value.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">📅 ประวัติการใช้งาน</h4>
+        <p>เก็บข้อมูลประวัติอาหารที่เคยวิเคราะห์เพื่อดูย้อนหลังได้.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it Works -->
+  <section id="how" class="bg-green-50 py-16 px-4">
+    <h3 class="text-3xl font-bold text-center mb-10">✅ วิธีใช้งาน</h3>
+    <div class="max-w-4xl mx-auto space-y-6">
+      <p>➕ เพิ่มเพื่อนกับ LINE Bot</p>
+      <p>➕ ส่งภาพถ่ายอาหาร</p>
+      
+      <!-- ฟอร์มถ่ายภาพ -->
+      <div class="space-y-4">
+        <video id="video" class="w-full" autoplay></video>
+        <button id="capture" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded">ถ่ายภาพ</button>
+        <canvas id="canvas" class="hidden"></canvas>
+        <p id="image-status" class="text-gray-600 mt-2"></p>
+      </div>
+
+      <p>➕ รอรับผลวิเคราะห์ ชื่ออาหาร + แคลอรี่ + สารอาหาร</p>
+      <p id="loading-message" class="text-gray-600 mt-2 hidden">กำลังวิเคราะห์ภาพ...</p>
+
+      <!-- แสดงผลการวิเคราะห์ -->
+      <div id="result" class="hidden mt-4">
+        <p class="text-lg text-green-500">ชื่ออาหาร: <span id="food-name"></span></p>
+        <p class="text-lg">แคลอรี่: <span id="calories"></span> kcal</p>
+        <p class="text-lg">โปรตีน: <span id="protein"></span> g</p>
+        <p class="text-lg">ไขมัน: <span id="fat"></span> g</p>
+        <p class="text-lg">คาร์โบไฮเดรต: <span id="carbs"></span> g</p>
+      </div>
+
+      <p>➕ ใช้งานได้ฟรี!</p>
+    </div>
+  </section>
+
+  <!-- Technology Stack -->
+  <section id="tech" class="max-w-7xl mx-auto py-12 px-4">
+    <h3 class="text-3xl font-bold text-center mb-10">🛠️ เทคโนโลยีที่ใช้</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">LINE Messaging API</h4>
+        <p>สำหรับรับส่งข้อมูลระหว่างผู้ใช้และระบบ.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">Google Vision / Gemini</h4>
+        <p>สำหรับวิเคราะห์และระบุชื่ออาหารจากภาพถ่าย.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">n8n Workflow Automation</h4>
+        <p>สร้างกระบวนการอัตโนมัติ จัดการข้อมูลและตอบกลับผู้ใช้.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-semibold mb-2">Docker + Ngrok</h4>
+        <p>สำหรับพัฒนาและทดสอบระบบ Chatbot ในเครื่องได้สะดวก.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-gray-500 text-sm py-6">
+    © 2025 พัฒนาโดย ทีม Health & Nutrition Bot
+  </footer>
+
+  <script>
+    const videoElement = document.getElementById('video');
+    const captureButton = document.getElementById('capture');
+    const canvasElement = document.getElementById('canvas');
+    const imageStatus = document.getElementById('image-status');
+    const loadingMessage = document.getElementById('loading-message');
+    const resultSection = document.getElementById('result');
+    const foodName = document.getElementById('food-name');
+    const calories = document.getElementById('calories');
+    const protein = document.getElementById('protein');
+    const fat = document.getElementById('fat');
+    const carbs = document.getElementById('carbs');
+
+    // เริ่มต้นกล้อง
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        videoElement.srcObject = stream;
+      })
+      .catch((error) => {
+        imageStatus.textContent = 'ไม่สามารถเข้าถึงกล้องได้';
+      });
+
+    // ฟังก์ชันถ่ายภาพจากกล้อง
+    captureButton.addEventListener('click', () => {
+      const context = canvasElement.getContext('2d');
+      canvasElement.width = videoElement.videoWidth;
+      canvasElement.height = videoElement.videoHeight;
+      context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+      
+      // ส่งภาพไปประมวลผล
+      imageStatus.textContent = 'กำลังส่งภาพสำหรับการวิเคราะห์...';
+      loadingMessage.classList.remove('hidden');
+      
+      setTimeout(() => {
+        loadingMessage.classList.add('hidden');
+        resultSection.classList.remove('hidden');
+
+        // ข้อมูลตัวอย่างจากการวิเคราะห์
+        foodName.textContent = 'ข้าวผัดหมู';
+        calories.textContent = '300';
+        protein.textContent = '12';
+        fat.textContent = '10';
+        carbs.textContent = '45';
+      }, 3000); // จำลองการดีเลย์ 3 วินาที
+    });
+  </script>
+
+</body>
+</html>
