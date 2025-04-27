@@ -1,173 +1,282 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health Nutrition LINE Chatbot</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50 text-gray-800">
-
-  <!-- Navbar -->
-  <header class="bg-white shadow">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Health & Nutrition Bot</h1>
-      <a href="#start" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded">เริ่มใช้งาน</a>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="text-center py-16 px-6">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">พัฒนาระบบ LINE Chatbot สุขภาพและโภชนาการ</h2>
-    <p class="text-lg md:text-xl text-gray-600 mb-6">ถ่ายภาพอาหาร รู้ทันที! ชื่อเมนู พลังงาน และสารอาหารครบถ้วน 🍎✨</p>
-    <a href="#features" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded">ดูฟีเจอร์</a>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features" class="max-w-7xl mx-auto py-12 px-4">
-    <h3 class="text-3xl font-bold text-center mb-10">✨ ฟีเจอร์หลัก</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">📷 ถ่ายภาพอาหาร</h4>
-        <p>ส่งรูปผ่าน LINE Chatbot ง่ายๆ แล้วให้ระบบวิเคราะห์.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">🧐 วิเคราะห์ชื่ออาหาร</h4>
-        <p>ใช้ AI แยกประเภทอาหารจากภาพ เช่น ข้าวผัดหมู, ส้มตำไทย.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">🔥 บอกแคลอรี่และสารอาหาร</h4>
-        <p>แสดงพลังงาน, โปรตีน, ไขมัน, คาร์โบไฮเดรต พร้อม % Daily Value.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">📅 ประวัติการใช้งาน</h4>
-        <p>เก็บข้อมูลประวัติอาหารที่เคยวิเคราะห์เพื่อดูย้อนหลังได้.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- How it Works -->
-  <section id="how" class="bg-green-50 py-16 px-4">
-    <h3 class="text-3xl font-bold text-center mb-10">✅ วิธีใช้งาน</h3>
-    <div class="max-w-4xl mx-auto space-y-6">
-      <p>➕ เพิ่มเพื่อนกับ LINE Bot</p>
-      <p>➕ ส่งภาพถ่ายอาหาร</p>
-
-      <!-- กล้องและถ่ายภาพ -->
-      <div class="space-y-4">
-        <video id="video" class="w-full" autoplay></video>
-        <button id="capture" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded">ถ่ายภาพ</button>
-        <canvas id="canvas" class="hidden"></canvas>
-        <p id="image-status" class="text-gray-600 mt-2"></p>
-      </div>
-
-      <p>➕ รอรับผลวิเคราะห์ ชื่ออาหาร + แคลอรี่ + สารอาหาร</p>
-      <p id="loading-message" class="text-gray-600 mt-2 hidden">กำลังวิเคราะห์ภาพ...</p>
-
-      <!-- แสดงผลการวิเคราะห์ -->
-      <div id="result" class="hidden mt-4">
-        <p class="text-lg text-green-500">ชื่ออาหาร: <span id="food-name"></span></p>
-        <p class="text-lg">แคลอรี่: <span id="calories"></span> kcal</p>
-        <p class="text-lg">โปรตีน: <span id="protein"></span> g</p>
-        <p class="text-lg">ไขมัน: <span id="fat"></span> g</p>
-        <p class="text-lg">คาร์โบไฮเดรต: <span id="carbs"></span> g</p>
-      </div>
-
-      <!-- ประวัติอาหารที่วิเคราะห์ -->
-      <div class="mt-10">
-        <h4 class="text-2xl font-bold mb-4">📝 ประวัติอาหารที่วิเคราะห์</h4>
-        <ul id="history-list" class="list-disc list-inside text-left space-y-2"></ul>
-      </div>
-
-      <p>➕ ใช้งานได้ฟรี!</p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="text-center text-gray-500 text-sm py-6">
-    © 2025 พัฒนาโดย ทีม Health & Nutrition Bot
-  </footer>
-
-  <!-- Script Zone -->
+  <title>Calorie Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const videoElement = document.getElementById('video');
-    const captureButton = document.getElementById('capture');
-    const canvasElement = document.getElementById('canvas');
-    const imageStatus = document.getElementById('image-status');
-    const loadingMessage = document.getElementById('loading-message');
-    const resultSection = document.getElementById('result');
-    const foodName = document.getElementById('food-name');
-    const calories = document.getElementById('calories');
-    const protein = document.getElementById('protein');
-    const fat = document.getElementById('fat');
-    const carbs = document.getElementById('carbs');
-    const historyList = document.getElementById('history-list');
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366F1',
+            secondary: '#8B5CF6',
+            accent: '#4F46E5',
+            soft: '#EEF2FF',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-soft font-sans min-h-screen flex items-center justify-center">
 
+  <div class="w-full max-w-4xl p-8 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl">
+    <header class="text-center mb-10">
+      <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-2">🥗 แดชบอร์ดสุขภาพ</h1>
+      <p class="text-md text-gray-500 dark:text-gray-300">วันที่ 27 เมษายน 2568</p>
+    </header>
+
+    <!-- เป้าหมายพลังงาน -->
+    <section class="goal-setting mb-10">
+      <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-5">🎯 ตั้งค่าเป้าหมายพลังงาน</h2>
+      <div class="flex gap-4">
+        <input type="number" id="goal-input" placeholder="ใส่เป้าหมาย (แคลอรี่)" class="flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-primary focus:outline-none">
+        <button id="set-goal" class="px-6 py-3 rounded-xl bg-primary hover:bg-secondary text-white font-semibold transition-all">บันทึก</button>
+      </div>
+      <p id="goal-display" class="mt-4 text-gray-600 dark:text-gray-300">เป้าหมายปัจจุบัน: 0 แคลอรี่</p>
+    </section>
+
+    <!-- กราฟการกินอาหาร -->
+    <section class="graph mb-10">
+      <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-5">📈 กราฟสรุปการกินอาหารรายวัน</h2>
+      <canvas id="calorieChart" class="w-full h-64"></canvas>
+    </section>
+
+    <!-- สถิติเพลงงาน -->
+    <section class="stats mb-10">
+      <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-5">🔥 พลังงานรวมวันนี้</h2>
+      <div class="flex flex-col items-center">
+        <div class="w-36 h-36 rounded-full bg-soft border-8 border-primary flex items-center justify-center text-3xl font-bold text-primary shadow-md mb-5 transition-all" id="circle-display">
+          <span id="remaining-calories">1,496</span>
+        </div>
+        <div class="text-center space-y-1">
+          <p class="text-gray-600 dark:text-gray-200">เป้าหมาย: <span id="current-goal">0</span> แคลอรี่</p>
+          <p class="text-gray-600 dark:text-gray-200">บริโภคแล้ว: <span id="total-calories">0</span> แคลอรี่</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- รายการมื้ออาหาร -->
+    <section class="meal-log space-y-8 mb-10">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">🍳 มื้อเช้า</h3>
+        <button class="add-food w-full py-3 bg-accent hover:bg-primary text-white font-semibold rounded-xl transition-all" data-meal="มื้อเช้า">+ เพิ่มอาหาร</button>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">🍚 มื้อกลางวัน</h3>
+        <button class="add-food w-full py-3 bg-accent hover:bg-primary text-white font-semibold rounded-xl transition-all" data-meal="มื้อกลางวัน">+ เพิ่มอาหาร</button>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">🍲 มื้อเย็น</h3>
+        <button class="add-food w-full py-3 bg-accent hover:bg-primary text-white font-semibold rounded-xl transition-all" data-meal="มื้อเย็น">+ เพิ่มอาหาร</button>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">🍪 อาหารว่าง</h3>
+        <button class="add-food w-full py-3 bg-accent hover:bg-primary text-white font-semibold rounded-xl transition-all" data-meal="อาหารว่าง">+ เพิ่มอาหาร</button>
+      </div>
+    </section>
+
+    <!-- ประวัติการบันทึกอาหาร -->
+    <section class="history-log">
+      <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-5">📋 ประวัติการบันทึกอาหาร</h2>
+      <ul id="history-list" class="space-y-3">
+        <!-- จะถูกเพิ่มข้อมูลตรงนี้ -->
+      </ul>
+      <button id="clear-history" class="w-full py-3 mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl transition-all">ล้างประวัติ</button>
+    </section>
+
+    <!-- โหมดกลางคืน -->
+    <button id="toggle-dark" class="absolute top-8 right-8 p-3 rounded-full bg-primary text-white">
+      🌙
+    </button>
+
+  </div>
+
+  <script>
+    // ตรวจสอบสถานะโหมดจาก LocalStorage
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    let goal = 1496;
     let historyData = [];
+    const setGoalButton = document.getElementById('set-goal');
+    const goalInput = document.getElementById('goal-input');
+    const currentGoalDisplay = document.getElementById('current-goal');
+    const remainingCaloriesDisplay = document.getElementById('remaining-calories');
+    const historyList = document.getElementById('history-list');
+    const clearHistoryButton = document.getElementById('clear-history');
+    const ctx = document.getElementById('calorieChart').getContext('2d');
+    let calorieChart;
 
-    // เริ่มต้นกล้อง
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then((stream) => {
-        videoElement.srcObject = stream;
-      })
-      .catch((error) => {
-        imageStatus.textContent = 'ไม่สามารถเข้าถึงกล้องได้';
-      });
+    const chartData = {
+      labels: ["มื้อเช้า", "มื้อกลางวัน", "มื้อเย็น", "อาหารว่าง"],
+      datasets: [{
+        label: "แคลอรี่",
+        data: [0, 0, 0, 0],
+        backgroundColor: ['#6366F1', '#8B5CF6', '#4F46E5', '#A78BFA']
+      }]
+    };
 
-    // ฟังก์ชันถ่ายภาพ
-    captureButton.addEventListener('click', async () => {
-      const context = canvasElement.getContext('2d');
-      canvasElement.width = videoElement.videoWidth;
-      canvasElement.height = videoElement.videoHeight;
-      context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+    // คำนวณพลังงานที่กินไปทั้งหมด
+    function getTotalCalories() {
+      return historyData.reduce((sum, item) => sum + item.calories, 0);
+    }
 
-      const imageBase64 = canvasElement.toDataURL('image/png').split(',')[1];
+    // อัปเดตการแสดงผลเป้าหมายและพลังงานเหลือ
+    function updateDisplays() {
+      currentGoalDisplay.textContent = goal;
+      const totalCalories = getTotalCalories();
+      const remainingCalories = goal - totalCalories;
+      remainingCaloriesDisplay.textContent = remainingCalories >= 0 ? remainingCalories : 0;
 
-      imageStatus.textContent = 'กำลังส่งภาพสำหรับการวิเคราะห์...';
-      loadingMessage.classList.remove('hidden');
+      // อัปเดตการแสดงผลในวงกลม
+      document.getElementById('remaining-calories').textContent = remainingCalories >= 0 ? remainingCalories : 0;
 
-      try {
-        // ตัวอย่าง mock ข้อมูล
-        const data = {
-          name: 'ข้าวผัดหมู',
-          calories: 300,
-          protein: 12,
-          fat: 10,
-          carbs: 45
-        };
+      // เพิ่มการแสดงเปอร์เซ็นต์การใช้พลังงานในวงกลม
+      const percentage = (totalCalories / goal) * 100;
+      const circle = document.getElementById('circle-display');
+      circle.style.background = `conic-gradient(#6366F1 ${percentage}%, #EEF2FF ${percentage}% 100%)`;
+    }
 
-        await new Promise(resolve => setTimeout(resolve, 2000)); // หน่วงเวลา 2 วินาทีให้เหมือนวิเคราะห์จริง
+    // ฟอร์แมตวันเวลา
+    function formatDate(date) {
+      const d = new Date(date);
+      return d.toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' });
+    }
 
-        foodName.textContent = data.name;
-        calories.textContent = data.calories;
-        protein.textContent = data.protein;
-        fat.textContent = data.fat;
-        carbs.textContent = data.carbs;
+    // เพิ่มรายการใหม่
+    function addHistoryItem(meal, calories, time) {
+      const li = document.createElement('li');
+      li.className = "flex flex-col gap-1 p-4 bg-soft dark:bg-gray-700 rounded-xl shadow-sm transition-all";
+      li.innerHTML = ` 
+        <div class="flex justify-between items-center">
+          <span class="font-medium text-gray-700 dark:text-gray-200">${meal}</span>
+          <span class="font-bold text-primary">${calories} แคลอรี่</span>
+        </div>
+        <div class="text-sm text-gray-500 text-right">${formatDate(time)}</div>
+      `;
+      historyList.prepend(li);
+    }
 
-        resultSection.classList.remove('hidden');
-        loadingMessage.classList.add('hidden');
+    // เซฟข้อมูลลง LocalStorage
+    function saveHistory() {
+      localStorage.setItem('calorieHistory', JSON.stringify(historyData));
+    }
 
-        historyData.push({
-          name: data.name,
-          calories: data.calories
+    // โหลดข้อมูลเก่า
+    function loadHistory() {
+      const saved = localStorage.getItem('calorieHistory');
+      if (saved) {
+        historyData = JSON.parse(saved);
+        historyData.forEach(item => {
+          addHistoryItem(item.meal, item.calories, item.time);
         });
-        updateHistory();
-      } catch (error) {
-        console.error('Error:', error);
-        imageStatus.textContent = 'เกิดข้อผิดพลาดในการวิเคราะห์';
-        loadingMessage.classList.add('hidden');
+      }
+      updateDisplays();
+      updateChart();
+    }
+
+    // อัปเดตกกราฟ
+    function updateChart() {
+      const meals = ["มื้อเช้า", "มื้อกลางวัน", "มื้อเย็น", "อาหารว่าง"];
+      const caloriesByMeal = { "มื้อเช้า": 0, "มื้อกลางวัน": 0, "มื้อเย็น": 0, "อาหารว่าง": 0 };
+      historyData.forEach(item => {
+        if (caloriesByMeal[item.meal] !== undefined) caloriesByMeal[item.meal] += item.calories;
+      });
+      chartData.datasets[0].data = meals.map(meal => caloriesByMeal[meal]);
+      if (calorieChart) calorieChart.destroy();
+      calorieChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+          scales: { y: { beginAtZero: true }} ,
+          plugins: {
+            legend: {
+              labels: { color: document.documentElement.classList.contains('dark') ? '#fff' : '#000' }
+            }
+          }
+        }
+      });
+    }
+
+    // กดตั้งเป้าหมาย
+    setGoalButton.addEventListener('click', () => {
+      const newGoal = parseInt(goalInput.value);
+      if (!isNaN(newGoal) && newGoal > 0) {
+        goal = newGoal;
+        goalInput.value = '';
+        updateDisplays();
+      } else {
+        alert("กรุณากรอกเป้าหมายที่ถูกต้อง");
       }
     });
 
-    // อัปเดตประวัติอาหาร
-    function updateHistory() {
-      historyList.innerHTML = '';
-      historyData.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - ${item.calories} kcal`;
-        historyList.appendChild(li);
+    // กดเพิ่มอาหาร
+    function showFoodModal(meal) {
+      const modal = document.createElement('div');
+      modal.className = "fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50";
+      modal.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl max-w-sm w-full space-y-4">
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">เพิ่มแคลอรี่ใน ${meal}</h2>
+          <input type="number" id="calorie-input" placeholder="ใส่แคลอรี่" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-primary focus:outline-none">
+          <div class="flex justify-end gap-2">
+            <button id="cancel-btn" class="px-4 py-2 rounded-xl bg-gray-300 hover:bg-gray-400">ยกเลิก</button>
+            <button id="save-btn" class="px-4 py-2 rounded-xl bg-primary hover:bg-secondary text-white">บันทึก</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      document.getElementById('cancel-btn').addEventListener('click', () => {
+        document.body.removeChild(modal);
+      });
+
+      document.getElementById('save-btn').addEventListener('click', () => {
+        const calories = parseInt(document.getElementById('calorie-input').value);
+        if (!isNaN(calories) && calories > 0) {
+          const time = new Date().toISOString();
+          historyData.push({ meal, calories, time });
+          addHistoryItem(meal, calories, time);
+          updateDisplays();
+          updateChart();
+          saveHistory();
+        }
+        document.body.removeChild(modal);
       });
     }
+
+    // เพิ่มอาหาร
+    const addFoodButtons = document.querySelectorAll('.add-food');
+    addFoodButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const meal = e.target.getAttribute('data-meal');
+        showFoodModal(meal);
+      });
+    });
+
+    // ล้างประวัติ
+    clearHistoryButton.addEventListener('click', () => {
+      historyData = [];
+      historyList.innerHTML = '';
+      updateDisplays();
+      updateChart();
+      saveHistory();
+    });
+
+    // โหมดกลางคืน
+    document.getElementById('toggle-dark').addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+
+    // โหลดประวัติเมื่อเริ่ม
+    loadHistory();
   </script>
 
 </body>
