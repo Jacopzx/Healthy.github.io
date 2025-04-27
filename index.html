@@ -52,8 +52,8 @@
     <div class="max-w-4xl mx-auto space-y-6">
       <p>➕ เพิ่มเพื่อนกับ LINE Bot</p>
       <p>➕ ส่งภาพถ่ายอาหาร</p>
-      
-      <!-- ฟอร์มถ่ายภาพ -->
+
+      <!-- กล้องและถ่ายภาพ -->
       <div class="space-y-4">
         <video id="video" class="w-full" autoplay></video>
         <button id="capture" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded">ถ่ายภาพ</button>
@@ -73,30 +73,13 @@
         <p class="text-lg">คาร์โบไฮเดรต: <span id="carbs"></span> g</p>
       </div>
 
-      <p>➕ ใช้งานได้ฟรี!</p>
-    </div>
-  </section>
+      <!-- ประวัติอาหารที่วิเคราะห์ -->
+      <div class="mt-10">
+        <h4 class="text-2xl font-bold mb-4">📝 ประวัติอาหารที่วิเคราะห์</h4>
+        <ul id="history-list" class="list-disc list-inside text-left space-y-2"></ul>
+      </div>
 
-  <!-- Technology Stack -->
-  <section id="tech" class="max-w-7xl mx-auto py-12 px-4">
-    <h3 class="text-3xl font-bold text-center mb-10">🛠️ เทคโนโลยีที่ใช้</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">LINE Messaging API</h4>
-        <p>สำหรับรับส่งข้อมูลระหว่างผู้ใช้และระบบ.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">Google Vision / Gemini</h4>
-        <p>สำหรับวิเคราะห์และระบุชื่ออาหารจากภาพถ่าย.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">n8n Workflow Automation</h4>
-        <p>สร้างกระบวนการอัตโนมัติ จัดการข้อมูลและตอบกลับผู้ใช้.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">Docker + Ngrok</h4>
-        <p>สำหรับพัฒนาและทดสอบระบบ Chatbot ในเครื่องได้สะดวก.</p>
-      </div>
+      <p>➕ ใช้งานได้ฟรี!</p>
     </div>
   </section>
 
@@ -105,6 +88,7 @@
     © 2025 พัฒนาโดย ทีม Health & Nutrition Bot
   </footer>
 
+  <!-- Script Zone -->
   <script>
     const videoElement = document.getElementById('video');
     const captureButton = document.getElementById('capture');
@@ -117,6 +101,9 @@
     const protein = document.getElementById('protein');
     const fat = document.getElementById('fat');
     const carbs = document.getElementById('carbs');
+    const historyList = document.getElementById('history-list');
+
+    let historyData = [];
 
     // เริ่มต้นกล้อง
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -127,29 +114,60 @@
         imageStatus.textContent = 'ไม่สามารถเข้าถึงกล้องได้';
       });
 
-    // ฟังก์ชันถ่ายภาพจากกล้อง
-    captureButton.addEventListener('click', () => {
+    // ฟังก์ชันถ่ายภาพ
+    captureButton.addEventListener('click', async () => {
       const context = canvasElement.getContext('2d');
       canvasElement.width = videoElement.videoWidth;
       canvasElement.height = videoElement.videoHeight;
       context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-      
-      // ส่งภาพไปประมวลผล
+
+      const imageBase64 = canvasElement.toDataURL('image/png').split(',')[1];
+
       imageStatus.textContent = 'กำลังส่งภาพสำหรับการวิเคราะห์...';
       loadingMessage.classList.remove('hidden');
-      
-      setTimeout(() => {
-        loadingMessage.classList.add('hidden');
-        resultSection.classList.remove('hidden');
 
-        // ข้อมูลตัวอย่างจากการวิเคราะห์
-        foodName.textContent = 'ข้าวผัดหมู';
-        calories.textContent = '300';
-        protein.textContent = '12';
-        fat.textContent = '10';
-        carbs.textContent = '45';
-      }, 3000); // จำลองการดีเลย์ 3 วินาที
+      try {
+        // ตัวอย่าง mock ข้อมูล
+        const data = {
+          name: 'ข้าวผัดหมู',
+          calories: 300,
+          protein: 12,
+          fat: 10,
+          carbs: 45
+        };
+
+        await new Promise(resolve => setTimeout(resolve, 2000)); // หน่วงเวลา 2 วินาทีให้เหมือนวิเคราะห์จริง
+
+        foodName.textContent = data.name;
+        calories.textContent = data.calories;
+        protein.textContent = data.protein;
+        fat.textContent = data.fat;
+        carbs.textContent = data.carbs;
+
+        resultSection.classList.remove('hidden');
+        loadingMessage.classList.add('hidden');
+
+        historyData.push({
+          name: data.name,
+          calories: data.calories
+        });
+        updateHistory();
+      } catch (error) {
+        console.error('Error:', error);
+        imageStatus.textContent = 'เกิดข้อผิดพลาดในการวิเคราะห์';
+        loadingMessage.classList.add('hidden');
+      }
     });
+
+    // อัปเดตประวัติอาหาร
+    function updateHistory() {
+      historyList.innerHTML = '';
+      historyData.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.calories} kcal`;
+        historyList.appendChild(li);
+      });
+    }
   </script>
 
 </body>
